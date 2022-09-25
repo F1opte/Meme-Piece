@@ -6225,6 +6225,24 @@ spawn(function()
     end
 end)
 
+tap1_page4:AddToggle({
+    Name = "ULTIMATE Katana",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        skill_ULTIMATE_Katana = value
+    end
+})
+
+spawn(function()
+    while task.wait(auto_skill_delay) do
+        if skill_ULTIMATE_Katana then
+            pcall(function()
+                game:GetService("ReplicatedStorage").SkillRemotes.UK.A:FireServer()
+            end)
+        end
+    end
+end)
+
 tap1_page4:AddSlider({
 	Name = "Delay",
 	Value = 1, -- ค่าที่ให้เลือก
