@@ -5997,7 +5997,7 @@ local tap1_page3 = tap1:CreateSection({
 
 local tap1_page4 = tap1:CreateSection({
     Name = "Auto Skills",
-    Side = "Left"
+    Side = "Right"
 })
 
 local tap2_page1 = tap2:CreateSection({
@@ -6308,7 +6308,7 @@ spawn(function()
 end)
 
 tap1_page4:AddToggle({
-    Name = "ULTIMATE Katana",
+    Name = "ULTIMATE Katana ( Q )",
 	Value = false, -- ปรับค่าToggle true/false or Config
     Callback = function(value)
         skill_ULTIMATE_Katana = value
@@ -6320,6 +6320,24 @@ spawn(function()
         if skill_ULTIMATE_Katana then
             pcall(function()
                 game:GetService("ReplicatedStorage").SkillRemotes.UK.A:FireServer()
+            end)
+        end
+    end
+end)
+
+tap1_page4:AddToggle({
+    Name = "ULTIMATE Katana ( E )",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        skill_ULTIMATE_Katana2 = value
+    end
+})
+
+spawn(function()
+    while task.wait(auto_skill_delay) do
+        if skill_ULTIMATE_Katana2 then
+            pcall(function()
+                game:GetService("ReplicatedStorage").SkillRemotes.UK.B:FireServer()
             end)
         end
     end
