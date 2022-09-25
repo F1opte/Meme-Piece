@@ -6039,6 +6039,18 @@ local check_Mr_Frozen_Frog = tap1_page1:AddLabel({
     Name = " "
 })
 
+local check_Fuffy_Gear_6 = tap1_page1:AddLabel({
+    Name = " "
+})
+
+local check_Fuffy_Gear_7 = tap1_page1:AddLabel({
+    Name = " "
+})
+
+local check_Dababy = tap1_page1:AddLabel({
+    Name = " "
+})
+
 spawn(function()
     while task.wait() do
         pcall(function()
@@ -6075,6 +6087,24 @@ spawn(function()
                 check_Mr_Frozen_Frog:Set("✅ : Frozen Frog")
             else
                 check_Mr_Frozen_Frog:Set("❌ : Frozen Frog")
+            end
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Fuffy Gear 6") then
+                check_Fuffy_Gear_6:Set("✅ : Fuffy Gear 6")
+            else
+                check_Fuffy_Gear_6:Set("❌ : Fuffy Gear 6")
+            end
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Fuffy Gear 7") then
+                check_Fuffy_Gear_7:Set("✅ : Fuffy Gear 7")
+            else
+                check_Fuffy_Gear_7:Set("❌ : Fuffy Gear 7")
+            end
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Dababy") then
+                check_Dababy:Set("✅ : Dababy")
+            else
+                check_Dababy:Set("❌ : Dababy")
             end
             
             end
@@ -6171,6 +6201,30 @@ spawn(function()
             pcall(function()
 				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 					if string.find(v.Name, "Orb") then
+						if v:IsA("Tool") then
+							plr.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+						end
+					end
+				end
+            end)
+        end
+    end
+end)
+
+tap1_page3:AddToggle({
+    Name = "Grab Keys",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        GrabKeys = value
+    end
+})
+
+spawn(function()
+    while task.wait() do
+        if GrabOrbs then
+            pcall(function()
+				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+					if string.find(v.Name, "Key") then
 						if v:IsA("Tool") then
 							plr.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
 						end
