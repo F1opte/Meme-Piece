@@ -5981,7 +5981,7 @@ local tap2 = PepsiUi:CreateTab({
 })
 
 local tap1_page1 = tap1:CreateSection({
-    Name = "Main", -- ชื่อ
+    Name = "Boss Spawns", -- ชื่อ
     Side = "Left" -- ตำแหน่ง Left/Right
 })
 
@@ -5992,6 +5992,11 @@ local tap1_page2 = tap1:CreateSection({
 
 local tap1_page3 = tap1:CreateSection({
     Name = "Items",
+    Side = "Left"
+})
+
+local tap1_page4 = tap1:CreateSection({
+    Name = "Auto Skills",
     Side = "Left"
 })
 
@@ -6165,6 +6170,53 @@ spawn(function()
         end
     end
 end)
+
+tap1_page4:AddToggle({
+    Name = "Doge",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        skill_doge = value
+    end
+})
+
+spawn(function()
+    while task.wait(auto_skill_delay) do
+        if skill_doge then
+            pcall(function()
+                game:GetService("ReplicatedStorage").SkillRemotes.Doge.A:FireServer()
+            end)
+        end
+    end
+end)
+
+tap1_page4:AddToggle({
+    Name = "Soul Spear",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        skill_Soul_Spear = value
+    end
+})
+
+spawn(function()
+    while task.wait(auto_skill_delay) do
+        if skill_Soul_Spear then
+            pcall(function()
+                game:GetService("ReplicatedStorage").SkillRemotes.SS.A:FireServer()
+            end)
+        end
+    end
+end)
+
+tap1_page4:AddSlider({
+	Name = "Delay",
+	Value = 1, -- ค่าที่ให้เลือก
+	Min = 0.5, -- น้อยสุด
+	Max = 10, -- มากสุด
+	Format = "Delay : %s",
+	Callback = function(value)
+		auto_skill_delay = value
+	end
+})
 
 tap2_page1:AddSlider({
 	Name = "WalkSpeed",
