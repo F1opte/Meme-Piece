@@ -5960,7 +5960,7 @@ for i,v in pairs(game.Players:GetChildren()) do
 end
 
 local PepsiUi = library:CreateWindow({
-    Name = "Meme Piece",
+    Name = "Prayut Hub | Meme Piece",
     Theme = {
         Image = "rbxassetid://7483871523",
         Info = "Info",
