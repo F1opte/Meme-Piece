@@ -6014,15 +6014,19 @@ local check_magmamonster = tap1_page1:AddLabel({
     Name = " "
 })
 
-local check_PlantsProtector = tap1_page1:AddLabel({
-    Name = " "
-})
-
 local check_worm = tap1_page1:AddLabel({
     Name = " "
 })
 
 local check_FrostGolem = tap1_page1:AddLabel({
+    Name = " "
+})
+
+local check_Beast_Titan = tap1_page1:AddLabel({
+    Name = " "
+})
+
+local check_Mr_Incredible = tap1_page1:AddLabel({
     Name = " "
 })
 
@@ -6035,12 +6039,6 @@ spawn(function()
                 check_magmamonster:Set("❌ : Magma Monster")
             end
             
-            if game:GetService("Workspace").Boss:FindFirstChild("Plants Protector") then
-                check_PlantsProtector:Set("✅ : Plants Protector")
-            else
-                check_PlantsProtector:Set("❌ : Plants Protector")
-            end
-            
             if game:GetService("Workspace").Boss:FindFirstChild("Worm") then
                 check_worm:Set("✅ : Worm")
             else
@@ -6051,6 +6049,19 @@ spawn(function()
                 check_FrostGolem:Set("✅ : Frost Golem")
             else
                 check_FrostGolem:Set("❌ : Frost Golem")
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Beast Titan") then
+                check_Beast_Titan:Set("✅ : Beast Titan")
+            else
+                check_Beast_Titan:Set("❌ : Beast Titan")
+            end
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Mr. Incredible") then
+                check_Mr_Incredible:Set("✅ : Mr. Incredible")
+            else
+                check_Mr_Incredible:Set("❌ : Mr. Incredible")
+            end
+            
             end
         end)
     end
@@ -6109,15 +6120,15 @@ end)
 
 tap1_page3:AddToggle({
     Name = "Grab Bottles",
-	Value = _G.GrabBottles, -- ปรับค่าToggle true/false or Config
+	Value = false, -- ปรับค่าToggle true/false or Config
     Callback = function(value)
-        _G.GrabBottles = value
+        GrabBottles = value
     end
 })
 
 spawn(function()
     while task.wait() do
-        if _G.GrabBottles then
+        if GrabBottles then
             pcall(function()
                 for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 					if string.find(v.Name, "Bottle") then
@@ -6133,15 +6144,15 @@ end)
 
 tap1_page3:AddToggle({
     Name = "Grab Orbs",
-	Value = _G.GrabOrbs, -- ปรับค่าToggle true/false or Config
+	Value = false, -- ปรับค่าToggle true/false or Config
     Callback = function(value)
-        _G.GrabOrbs = value
+        GrabOrbs = value
     end
 })
 
 spawn(function()
     while task.wait() do
-        if _G.GrabOrbs then
+        if GrabOrbs then
             pcall(function()
 				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 					if string.find(v.Name, "Orb") then
