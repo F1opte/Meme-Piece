@@ -6035,6 +6035,10 @@ local check_Mr_Incredible = tap1_page1:AddLabel({
     Name = " "
 })
 
+local check_Mr_Frozen_Frog = tap1_page1:AddLabel({
+    Name = " "
+})
+
 spawn(function()
     while task.wait() do
         pcall(function()
@@ -6065,6 +6069,12 @@ spawn(function()
                 check_Mr_Incredible:Set("✅ : Mr. Incredible")
             else
                 check_Mr_Incredible:Set("❌ : Mr. Incredible")
+            end
+            
+            if game:GetService("Workspace").Boss:FindFirstChild("Frozen Frog (Boss)") then
+                check_Mr_Frozen_Frog:Set("✅ : Frozen Frog")
+            else
+                check_Mr_Frozen_Frog:Set("❌ : Frozen Frog")
             end
             
             end
@@ -6184,6 +6194,24 @@ spawn(function()
         if tp_to_MrChest then
             pcall(function()
                 plr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").MrChest.Part.CFrame
+            end)
+        end
+    end
+end)
+
+tap1_page3:AddToggle({
+    Name = "Teleport To DababyChest",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        tp_to_DababyChest = value
+    end
+})
+
+spawn(function()
+    while task.wait() do
+        if tp_to_DababyChest then
+            pcall(function()
+                plr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DababyChest.CFrame
             end)
         end
     end
@@ -6329,6 +6357,5 @@ tap2_page3:AddButton({
     	end
     end
 })
-
 
 return library, library_flags, library.subs
