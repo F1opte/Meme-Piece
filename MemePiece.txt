@@ -6476,7 +6476,7 @@ spawn(function()
                         v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                         click()
                         
-                    else
+                    elseif v.Humanoid.Health == 0 then
                         plr.Character.HumanoidRootPart.CFrame = CFrame.new(-314.036072, 47.5881004, -704.478882, -0.999974549, 1.08084242e-09, -0.0071364427, 1.10171927e-09, 1, -2.92145486e-09, 0.0071364427, -2.92924285e-09, -0.999974549) * CFrame.new(0,4000,0)
                     end
                 end
