@@ -1,3 +1,17 @@
+
+
+function click()
+    game:GetService("VirtualUser"):CaptureController()
+    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+end
+
+
+
+
+
+
+
+
 if game.CoreGui:FindFirstChild("PepsiUi") then
     game.CoreGui:FindFirstChild("PepsiUi"):Destroy()
 end
@@ -5959,6 +5973,12 @@ for i,v in pairs(game.Players:GetChildren()) do
     table.insert(playerlist,v.Name)
 end
 
+weaponlist = {}
+
+for i,v in pairs(plr.Backpack:GetChildren()) do
+    table.insert(weaponlist,v.Name)
+end
+
 local PepsiUi = library:CreateWindow({
     Name = "Prayut Hub | Meme Piece",
     Theme = {
@@ -5998,6 +6018,11 @@ local tap1_page3 = tap1:CreateSection({
 local tap1_page4 = tap1:CreateSection({
     Name = "Auto Skills",
     Side = "Right"
+})
+
+local tap1_page5 = tap1:CreateSection({
+    Name = "Auto Farm",
+    Side = "Left"
 })
 
 local tap2_page1 = tap2:CreateSection({
@@ -6271,6 +6296,24 @@ spawn(function()
     end
 end)
 
+tap1_page3:AddToggle({
+    Name = "Teleport To WormChest",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        tp_to_WormChest = value
+    end
+})
+
+spawn(function()
+    while task.wait() do
+        if tp_to_WormChest then
+            pcall(function()
+                plr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").WormChest.CFrame
+            end)
+        end
+    end
+end)
+
 tap1_page4:AddToggle({
     Name = "Doge",
 	Value = false, -- ปรับค่าToggle true/false or Config
@@ -6343,6 +6386,24 @@ spawn(function()
     end
 end)
 
+tap1_page4:AddToggle({
+    Name = "Immortal",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        skill_Immortal = value
+    end
+})
+
+spawn(function()
+    while task.wait(auto_skill_delay) do
+        if skill_Immortal then
+            pcall(function()
+                game:GetService("ReplicatedStorage").SkillRemotes.IM.C:FireServer()
+            end)
+        end
+    end
+end)
+
 tap1_page4:AddSlider({
 	Name = "Delay",
 	Value = 1, -- ค่าที่ให้เลือก
@@ -6353,6 +6414,76 @@ tap1_page4:AddSlider({
 		auto_skill_delay = value
 	end
 })
+
+tap1_page5:AddDropdown({
+	Name = "Select Weapon",
+	Value = "", -- ค่าที่จะให้มันเลือก
+	List = weaponlist,
+	Callback = function(value)
+		selectweapon_farm_mob = value
+	end
+})
+
+tap1_page5:AddButton({
+    Name = "Refresh Weapon",
+    Callback = function()
+        table.clear(weaponlist)
+        for i,v in pairs(plr.Backpack:GetChildren()) do
+            table.insert(weaponlist,v.Name)
+        end
+    end
+})
+
+tap1_page5:AddDropdown({
+	Name = "Select Mobs",
+	Value = "", -- ค่าที่จะให้มันเลือก
+	List = {"Bandits", "Snowman"},
+	Callback = function(value)
+		selectmob = value
+	end
+})
+
+tap1_page5:AddToggle({
+    Name = "Farm",
+	Value = false, -- ปรับค่าToggle true/false or Config
+    Callback = function(value)
+        autofarm = value
+    end
+})
+
+mob_name = {
+    "Bandit",
+    "Cute Snowman"
+}
+
+spawn(function()
+    while task.wait() do
+        if autofarm then
+            pcall(function()
+                for i,v in pairs(game:GetService("Workspace").Mobs[selectmob]:GetChildren()) do
+                    if v.Name == mob_name[1] then
+                        plr.Character.Humanoid:EquipTool(plr.Backpack:FindFirstChild(selectweapon_farm_mob))
+                        plr.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
+                        v.Humanoid.WalkSpeed = 0
+                        v.Humanoid.JumpPower = 0
+                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                        click()
+                    elseif v.Name == mob_name[2] then
+                        plr.Character.Humanoid:EquipTool(plr.Backpack:FindFirstChild(selectweapon_farm_mob))
+                        plr.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
+                        v.Humanoid.WalkSpeed = 0
+                        v.Humanoid.JumpPower = 0
+                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                        click()
+                        
+                    else
+                        plr.Character.HumanoidRootPart.CFrame = CFrame.new(-314.036072, 47.5881004, -704.478882, -0.999974549, 1.08084242e-09, -0.0071364427, 1.10171927e-09, 1, -2.92145486e-09, 0.0071364427, -2.92924285e-09, -0.999974549) * CFrame.new(0,4000,0)
+                    end
+                end
+            end)
+        end
+    end
+end)
 
 tap2_page1:AddSlider({
 	Name = "WalkSpeed",
